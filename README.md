@@ -1,6 +1,7 @@
 **Minimum Wages and Employment: A Difference-in-Differences Replication**
 
 **Track & Paper**
+
 Track: Track A — The Causal Policy Track (Difference-in-Differences)
 
 Paper: Card, D., & Krueger, A. B. (1994). Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. The American Economic Review, 84(4), 728–748.
