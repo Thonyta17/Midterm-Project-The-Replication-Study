@@ -1,9 +1,48 @@
-Replication Project: Labor Economics & Causal Inference
-Project Overview
-Track A: The Causal Policy Track (Difference-in-Differences)
+Minimum Wages and Employment: A Difference-in-Differences Replication
+Track & Paper
+Track: Track A — The Causal Policy Track (Difference-in-Differences)
+Paper: Card, D., & Krueger, A. B. (1994). Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. The American Economic Review, 84(4), 728–748.
+📄 Link to Original Paper (PDF)
 
-Paper: Card, D., & Krueger, A. B. (1994). "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania." American Economic Review, 84(4), 772–793.
+Main Causal Question
+The paper asks: Did New Jersey's April 1992 minimum wage increase (from $4.25 to $5.05/hour) cause a reduction in fast-food employment, as standard competitive labor market theory predicts?
+Using Pennsylvania fast-food restaurants as a control group, Card and Krueger compare employment changes before and after the policy change in a difference-in-differences (DiD) framework. Contrary to the classical prediction, they find that employment in New Jersey increased slightly relative to Pennsylvania, challenging the conventional view that minimum wage hikes reduce low-wage employment.
 
-Causal Question Summary
-This project investigates the causal impact of a minimum wage increase on employment levels within the low-wage labor market. Specifically, it asks whether the April 1992 hike in New Jersey’s minimum wage from $4.25 to $5.05 per hour led to a significant reduction in employment at fast-food restaurants compared to neighboring Pennsylvania, where the wage remained constant. By utilizing a Difference-in-Differences (DiD) framework, the study seeks to determine if empirical evidence supports the standard competitive model's prediction that higher wage floors necessarily decrease labor demand.
-Data Cleaning & PreprocessingThe dataset, sourced from the David Card UC Berkeley archive, required significant preprocessing to be suitable for causal analysis.1. Handling Fixed-Width FormatThe raw public.dat file is an ASCII fixed-width format without headers. I utilized pandas to read the file and manually mapped 46 variables based on the study’s original codebook.2. Missing Value ImputationMissing values in the original dataset are denoted by a period (.). These were converted to NaN and handled using:Listwise deletion for observations missing primary outcome variables (FTE).Mean imputation or exclusion for secondary covariates where appropriate.3. Feature Engineering: Full-Time Equivalents (FTE)To measure employment consistently, I calculated Full-Time Equivalents (FTE) for both Wave 1 (pre-treatment) and Wave 2 (post-treatment) using the Card-Krueger formula:$$FTE = \text{Full-Time Employees} + (0.5 \times \text{Part-Time Employees}) + \text{Managers}$$Methodology: Difference-in-Differences (DiD)To isolate the causal effect of the minimum wage increase, this replication employs a Difference-in-Differences (DiD) estimator. This method controls for omitted variables that are constant over time and those that are constant across states.1. Identification StrategyTreatment Group: Fast-food restaurants in New Jersey ($NJ = 1$).Control Group: Fast-food restaurants in Pennsylvania ($NJ = 0$).Temporal Change: Before and after the April 1992 wage hike.2. Regression ModelThe primary specification is an Ordinary Least Squares (OLS) regression on the change in employment ($\Delta FTE$):$$\Delta FTE_i = \alpha + \beta(NJ_i) + \gamma(X_i) + \epsilon_i$$Where $\beta$ represents the treatment effect. Alternatively, a fixed-effects panel model is used:$$FTE_{it} = \beta_0 + \beta_1(NJ_i) + \beta_2(After_t) + \delta(NJ_i \times After_t) + \epsilon_{it}$$The coefficient $\delta$ captures the causal impact of the policy change.3. Identifying AssumptionsThe validity of this model rests on the Parallel Trends Assumption: in the absence of the minimum wage increase, the trend in employment for NJ restaurants would have been identical to the trend observed in PA.
+Data Source
+
+Source: David Card's Public Data Sets — UC Berkeley
+File: public.dat (the New Jersey–Pennsylvania fast-food survey dataset)
+Description: A telephone survey of ~410 fast-food restaurants (Burger King, KFC, Wendy's, Roy Rogers) in New Jersey and eastern Pennsylvania, conducted in two waves:
+
+Wave 1 (Before): February–March 1992 — prior to NJ minimum wage increase
+Wave 2 (After): November–December 1992 — ~8 months after the NJ increase
+
+
+Key Variables: Full-time equivalent (FTE) employment, starting wage, hours open, chain, whether NJ or PA, and various store characteristics.
+
+
+Project Structure
+.
+├── README.md               # This file
+├── data/
+│   └── public.dat          # Raw data from Card & Krueger (1994)
+├── notebooks/
+│   └── analysis.ipynb      # Main DiD analysis notebook
+├── scripts/
+│   └── clean.py            # Data cleaning and FTE construction
+└── outputs/
+    └── figures/            # Plots (parallel trends, event study, etc.)
+
+Methodology Overview
+This replication follows the Difference-in-Differences design:
+Before (Feb–Mar 1992)After (Nov–Dec 1992)DifferenceNew Jersey (treated)Employment_NJ_preEmployment_NJ_postΔNJPennsylvania (control)Employment_PA_preEmployment_PA_postΔPADiD EstimateΔNJ − ΔPA
+Key empirical checks include:
+
+Parallel pre-trends validation (placebo tests)
+Robustness to alternative control groups
+Heterogeneity analysis by initial wage distribution
+
+
+Citation
+
+Card, D., & Krueger, A. B. (1994). Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. The American Economic Review, 84(4), 728–748.
