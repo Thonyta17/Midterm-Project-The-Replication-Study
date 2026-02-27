@@ -5,7 +5,7 @@
 Track: Track A — The Causal Policy Track (Difference-in-Differences)
 
 Paper: Card, D., & Krueger, A. B. (1994). Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. The American Economic Review, 84(4), 728–748.
-📄 Link to Original Paper (PDF)
+📄 Link to Original Paper (PDF) : https://davidcard.berkeley.edu/papers/njmin-aer.pdf
 
 Main Causal Question
 The paper asks: Did New Jersey's April 1992 minimum wage increase (from $4.25 to $5.05/hour) cause a reduction in fast-food employment, as standard competitive labor market theory predicts?
